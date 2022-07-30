@@ -1,19 +1,39 @@
 package springScrapgoat.scrapgoat.models;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String email;
     private String phone;
     private String cell;
-    private LocalDate accountCreationDate;
-    private Boolean isBlocked;
-    private Set<String> locations = new HashSet<>();
+    private LocalDate accountUpdatedDate;
+    private Boolean isBlocked = Boolean.FALSE;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private Set<Location> locations = new HashSet<>();
+    @Transient
     private Set<Pickup> pickupPostings = new HashSet<>();
+
+    public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -47,12 +67,12 @@ public class User {
         this.cell = cell;
     }
 
-    public LocalDate getAccountCreationDate() {
-        return accountCreationDate;
+    public LocalDate getAccountUpdatedDate() {
+        return accountUpdatedDate;
     }
 
-    public void setAccountCreationDate(LocalDate accountCreationDate) {
-        this.accountCreationDate = accountCreationDate;
+    public void setAccountUpdatedDate(LocalDate accountUpdatedDate) {
+        this.accountUpdatedDate = accountUpdatedDate;
     }
 
     public Boolean getBlocked() {
@@ -63,11 +83,11 @@ public class User {
         isBlocked = blocked;
     }
 
-    public Set<String> getLocations() {
+    public Set<Location> getLocations() {
         return locations;
     }
 
-    public void addLocation(String location) {
+    public void addLocation(Location location) {
         this.locations.add(location);
     }
 
@@ -86,7 +106,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", cell='" + cell + '\'' +
-                ", accountCreationDate=" + accountCreationDate +
+                ", accountUpdatedDate=" + accountUpdatedDate +
                 ", isBlocked=" + isBlocked +
                 ", # locations=" + locations.size() +
                 ", # postings=" + pickupPostings.size() +

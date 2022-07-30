@@ -41,10 +41,39 @@
         <p>
             You can save your user settings.
         </p>
+        <p th:text="${email}"></p>
 
         <!--Form when user is not logged in-->
         <div align="left">
-            User
+            <form method="post" action="#" th:action="@{/user}" th:object="${user}">
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="nameInput" th:field="*{name}">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phoneInput" th:field="*{phone}">
+                </div>
+                <div class="mb-3">
+                    <label for="cellInput" class="form-label">Cell</label>
+                    <input type="text" class="form-control" id="cellInput" th:field="*{cell}">
+                </div>
+                <button type="submit" name="save" value="save" class="btn btn-primary">Submit</button>
+                <hr/>
+
+                <ul th:each="location: ${user.getLocations()}">
+                    <li th:text="${location.address}"></li>
+                </ul>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="submit" name="newLocation" value="newLocation" class="btn btn-success">
+                            Add Location
+                        </button>
+                    </div>
+                    <input type="text" name="new">
+                </div>
+            </form>
+
         </div>
 
 
