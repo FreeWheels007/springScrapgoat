@@ -57,13 +57,10 @@ public class UserController {
         model.addAttribute("user", userForm);
         String email = principal.getEmail();
         User user = userService.getUserByEmail(email);
-        System.out.println(user);
         if (request.getParameter("newLocation") != null) {
             String newAddress = request.getParameter("new");
-            System.out.println(newAddress);
 
             user.addLocation(new Location(newAddress));
-            System.out.println("added new location");
         }
         userService.mergeUserForm_User(userForm, user);
 
