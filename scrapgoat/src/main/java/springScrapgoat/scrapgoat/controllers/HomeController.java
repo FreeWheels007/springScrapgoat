@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import springScrapgoat.scrapgoat.models.Pickup;
-import springScrapgoat.scrapgoat.models.PickupFormGuest;
+import springScrapgoat.scrapgoat.models.PickupForm;
 import springScrapgoat.scrapgoat.models.User;
 import springScrapgoat.scrapgoat.services.UserService;
 
@@ -27,14 +26,14 @@ public class HomeController {
     public String home(Model model, @AuthenticationPrincipal OidcUser principal) {
         // Guest user
         if (principal == null) {
-            model.addAttribute("pickup", new PickupFormGuest());
+            model.addAttribute("pickup", new PickupForm());
         } else {
             User user = userService.getUserByEmail(principal.getEmail());
-            PickupFormGuest pickupForm;
+            PickupForm pickupForm;
             if (user == null){
-                pickupForm = new PickupFormGuest();
+                pickupForm = new PickupForm();
             } else {
-                pickupForm = new PickupFormGuest(user);
+                pickupForm = new PickupForm(user);
             }
 
             model.addAttribute("pickup", pickupForm);
@@ -43,12 +42,12 @@ public class HomeController {
     }
 
     @PostMapping("/")
-    public String newPickupPost(Model model, @ModelAttribute PickupFormGuest pickupFormGuest,
+    public String newPickupPost(Model model, @ModelAttribute PickupForm pickupForm,
                                 @AuthenticationPrincipal OidcUser principal) {
         // Guest user
         if (principal == null) {
-            model.addAttribute("pickup", pickupFormGuest);
-            System.out.println(pickupFormGuest);
+            model.addAttribute("pickup", pickupForm);
+            System.out.println(pickupForm);
         }
         return "index.html";
     }

@@ -3,7 +3,7 @@ package springScrapgoat.scrapgoat.models;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PickupFormGuest {
+public class PickupForm {
 
     private String name;
     private String email;
@@ -11,10 +11,10 @@ public class PickupFormGuest {
     private String phone;
     private Set<Location> locations = new HashSet<>();
 
-    public PickupFormGuest() {
+    public PickupForm() {
     }
 
-    public PickupFormGuest(User user) {
+    public PickupForm(User user) {
         name = user.getName();
         email = user.getEmail();
         phone = user.getPhone();
