@@ -56,12 +56,20 @@
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phoneInput" th:field="*{phone}">
+                </div>
+                <div class="mb-3">
+                    <label for="cellInput" class="form-label">Cell</label>
+                    <input type="text" class="form-control" id="cellInput" th:field="*{cell}">
+                </div>
+                <div class="mb-3">
                     <label for="locationInput" class="form-label">Address of Scrap Pickup</label>
                     <input type="text" class="form-control" id="locationInput" th:field="*{location}">
                 </div>
                 <div class="mb-3">
-                    <label for="phoneInput" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="phoneInput" th:field="*{phone}">
+                    <label for="detailsInput" class="form-label">Details</label>
+                    <input type="text" class="form-control" id="detailsInput" th:field="*{details}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -80,12 +88,21 @@
                     <label for="phoneInput" class="form-label">Phone</label>
                     <input type="text" class="form-control" id="phoneInput" th:field="*{phone}">
                 </div>
+                <div class="mb-3">
+                    <label for="cellInput" class="form-label">Cell</label>
+                    <input type="text" class="form-control" id="cellInput" th:field="*{cell}">
+                </div>
                 <div th:each="location: ${pickup.getLocations()}">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="locationSelect" id="${location.getId()}">
-                        <label class="form-check-label" for="${location.getId()}" th:text="${location.getAddress()}">
+                        <input class="form-check-input" type="radio" name="locationSelect" th:id="${location.getId()}"
+                               th:value="${location.getAddress()}" th:field="*{location}">
+                        <label class="form-check-label" th:for="${location.getId()}" th:text="${location.getAddress()}">
                         </label>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="detailsInput" class="form-label">Details</label>
+                    <input type="text" class="form-control" id="detailsInput" th:field="*{details}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

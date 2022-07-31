@@ -1,16 +1,34 @@
 package springScrapgoat.scrapgoat.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "pickups")
 public class Pickup {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String email;
     private String location;
     private String phone;
     private String cell;
     private String details;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -55,6 +73,15 @@ public class Pickup {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

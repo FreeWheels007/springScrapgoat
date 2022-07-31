@@ -1,7 +1,6 @@
 package springScrapgoat.scrapgoat.models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class PickupForm {
 
@@ -9,7 +8,9 @@ public class PickupForm {
     private String email;
     private String location;
     private String phone;
-    private Set<Location> locations = new HashSet<>();
+    private String cell;
+    private String details;
+    private List<Location> locations = new ArrayList<>();
 
     public PickupForm() {
     }
@@ -18,8 +19,10 @@ public class PickupForm {
         name = user.getName();
         email = user.getEmail();
         phone = user.getPhone();
-        locations = user.getLocations();
+        cell = user.getCell();
+        locations = new ArrayList<>(user.getLocations());
 
+        Collections.sort(locations, (l1, l2) -> l1.getAddress().compareTo(l2.getAddress()));
     }
 
     public String getName() {
@@ -54,8 +57,23 @@ public class PickupForm {
         this.phone = phone;
     }
 
+    public String getCell() {
+        return cell;
+    }
 
-    public Set<Location> getLocations() {
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public List<Location> getLocations() {
         return locations;
     }
 
@@ -66,6 +84,8 @@ public class PickupForm {
                 ", email='" + email + '\'' +
                 ", location='" + location + '\'' +
                 ", phone='" + phone + '\'' +
+                ", cell=" + cell + '\'' +
+                ", details=" + details + '\'' +
                 '}';
     }
 }

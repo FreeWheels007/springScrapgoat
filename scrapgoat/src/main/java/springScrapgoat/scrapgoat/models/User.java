@@ -21,7 +21,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private Set<Location> locations = new HashSet<>();
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Pickup> pickupPostings = new HashSet<>();
 
     public User() {
